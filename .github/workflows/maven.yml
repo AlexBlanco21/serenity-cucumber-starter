@@ -17,11 +17,38 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+
     - name: Set up JDK 17
       uses: actions/setup-java@v2
       with:
         java-version: '17'
         distribution: 'adopt'
         cache: maven
+
     - name: Build with Maven
       run: mvn -B verify --file pom.xml
+
+      # Use the tree command to print the file structure
+    - name: Display file structure
+      run: |
+         sudo apt-get install -y tree  
+         tree -L 2  
+
+    - name: Cucumber HTML Report Generator
+      uses: mt185252/cucumber-html-report-generator@v1
+      with:
+        report-theme: 'bootstrap'
+        json-file-path: 'target/site/seremity/cucumber.json'
+        if-no-files-found: error
+        retention-days: '15'
+
+      # Zip Serenity report directory
+    - name: Zip Serenity report
+      run: zip -r serenity-report.zip target/site/serenity
+
+      # Upload zipped file as an artifact
+    - name: Upload Serenity report artifact
+      uses: actions/upload-artifact@v2
+      with:
+        name: serenity-report
+        path: serenity-report.zip
