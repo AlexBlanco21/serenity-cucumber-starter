@@ -48,7 +48,8 @@ jobs:
 
       # Upload zipped file as an artifact
     - name: Upload Serenity report artifact
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v4
       with:
         name: serenity-report
         path: serenity-report.zip
+        if-no-files-found: error
