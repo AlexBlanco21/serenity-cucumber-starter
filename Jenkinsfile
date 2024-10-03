@@ -21,4 +21,27 @@ pipeline {
             }
         }
     }
+
+    post {
+        always {
+            // This block will always run after the stages
+            echo 'Post build steps - Always runs'
+
+            // Send an email notification
+            emailext(
+                subject: "Build ${currentBuild.fullDisplayName}",
+                body: "Build ${currentBuild.fullDisplayName} completed with status: ${currentBuild.currentResult}",
+                to: 'ablancotamara@gmail.com'
+            )
+        }
+        success {
+            // This block runs only if the build is successful
+            echo 'Build succeeded!'
+            cucumber 'target/cucumber.json'
+        }
+        failure {
+            // This block runs only if the build fails
+            echo 'Build failed!'
+        }
+    }
 }
