@@ -55,6 +55,7 @@ dependencies {
 
 test {
     useJUnitPlatform()
+    systemProperty "cucumber.plugin", "json:target/cucumber.json"
 }
 
 gradle.startParameter.continueOnFailure = true
