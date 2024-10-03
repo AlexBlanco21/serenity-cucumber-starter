@@ -38,13 +38,13 @@ jobs:
       uses: mt185252/cucumber-html-report-generator@v1
       with:
         report-theme: 'bootstrap'
-        json-file-path: 'target/site/serenity/cucumber.json'
+        json-file-path: 'target/cucumber.json'
         if-no-files-found: error
         retention-days: '15'
 
       # Zip Serenity report directory
     - name: Zip Serenity report
-      run: zip -r serenity-report.zip target/site/serenity
+      run: zip -r serenity-report.zip target/
 
       # Upload zipped file as an artifact
     - name: Upload Serenity report artifact
