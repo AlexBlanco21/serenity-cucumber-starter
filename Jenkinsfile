@@ -8,12 +8,6 @@ pipeline {
                 git branch: 'master', url: 'https://github.com/AlexBlanco21/serenity-cucumber-starter.git'
             }
         }
-        stage('Set up JDK') {
-            steps {
-                // Use JDK 17
-                tool name: 'JDK 17', type: 'jdk'
-            }
-        }
         stage('Build') {
             steps {
                 // Build the project with Maven
@@ -28,11 +22,11 @@ pipeline {
             echo 'Post build steps - Always runs'
 
             // Send an email notification
-            emailext(
-                subject: "Build ${currentBuild.fullDisplayName}",
-                body: "Build ${currentBuild.fullDisplayName} completed with status: ${currentBuild.currentResult}",
-                to: 'ablancotamara@gmail.com'
-            )
+            // emailext(
+                // subject: "Build ${currentBuild.fullDisplayName}",
+                // body: "Build ${currentBuild.fullDisplayName} completed with status: ${currentBuild.currentResult}",
+                // to: 'ablancotamara@gmail.com'
+            // )
         }
         success {
             // This block runs only if the build is successful
